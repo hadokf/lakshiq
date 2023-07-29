@@ -1,0 +1,30 @@
+import readline
+
+# List of available Termux commands (replace these with actual commands)
+termux_commands = [
+    "apt",
+    "pkg",
+    "ls",
+    "cd",
+    "python",
+    "vim",
+    # Add more commands as needed
+]
+
+def auto_complete(text, state):
+    options = [command for command in termux_commands if command.startswith(text)]
+    return options[state] if state < len(options) else None
+
+def main():
+    readline.parse_and_bind("tab: complete")
+    readline.set_completer(auto_complete)
+
+    while True:
+        user_input = input("Termux> ")
+        if user_input == "exit":
+            break
+        else:
+            print(f"You entered: {user_input}")
+
+if __name__ == "__main__":
+    main()
